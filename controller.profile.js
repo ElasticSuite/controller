@@ -1,12 +1,12 @@
 var profile = (function(){
-	var testResourceRe = /^controller\/tests\//,
+	var testResourceRe = /tests|demos/,
 
 		copyOnly = function(filename, mid){
 			var list = {
 				"controller/controller.profile":1,
 				"controller/package.json":1
 			};
-			return (mid in list) || (/^controller\/resources\//.test(mid) && !/\.css$/.test(filename)) || /(png|jpg|jpeg|gif|tiff)$/.test(filename);
+			return (mid in list) || (/^resources\//.test(mid) && !/\.css$/.test(filename)) || /(png|jpg|jpeg|gif|tiff)$/.test(filename);
 		};
 
 	return {
@@ -16,7 +16,7 @@ var profile = (function(){
 			},
 
 			copyOnly: function(filename, mid){
-				return copyOnly(filename, mid);
+				return copyOnly(filename, mid) || this.test(filename, mid);
 			},
 
 			amd: function(filename, mid){
